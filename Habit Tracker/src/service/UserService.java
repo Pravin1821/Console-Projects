@@ -31,4 +31,8 @@ public class UserService {
         System.out.println("Welcome back! "+userHashMap.get(id).getUserName());
         return true;
     }
+    public String getName(int id)
+    {
+        return userHashMap.get(id).getUserName();
+    }
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HabitService {
+    UserService userService = new UserService();
     HashMap<Integer, ArrayList<Habit>> habitMap = new HashMap<>();
     HashMap<Integer, ArrayList<HabitLog>> habitLogMap = new HashMap<>();
     public void createHabits(Habit habit)
@@ -61,17 +62,7 @@ public class HabitService {
         }
         if(history.isEmpty())
                 return;
-        history.sort((a, b) -> b.getDateTime().compareTo(a.getDateTime()));
-        int streak = 0;
-        java.time.LocalDate checkDate = java.time.LocalDate.now();
-        for(HabitLog i:history)
-        {
-            java.time.LocalDate logDate = i.getDateTime().toLocalDate();
-            if(logDate.equals(checkDate) && i.isCompleted())
-                streak++;
-            else
-                break;
-        }
+        int streak = getCurrentStreak(history);
         ArrayList<Habit> habits = habitMap.get(id);
         if(habits!=null)
         {
@@ -90,13 +81,12 @@ public class HabitService {
         ArrayList<HabitLog> log = habitLogMap.get(id);
         if(log==null)
             return;
-        int points=0,completed=0;
+        int points=0,completed=completed(log);
         for(HabitLog i:log)
         {
             if(i.isCompleted())
             {
                 points+=10;
-                completed++;
             }
         }
         rewards.setLevel(points/100);
@@ -115,6 +105,73 @@ public class HabitService {
         ArrayList<HabitLog> log = habitLogMap.get(id);
         if(log==null)
             return;
+        int total = log.size();
+        double completionRate = (completed(log)*100.0)/total;
+        analytics.setCompletionRate(completionRate);
+        analytics.setCurrentStreak(getCurrentStreak(log));
+        analytics.setLongestStreak(getLongestStreak(log));
+        int count = 0;
+        java.time.LocalDate today = java.time.LocalDate.now();
+        for(HabitLog i : log)
+        {
+            java.time.LocalDate logDate = i.getDateTime().toLocalDate();
 
+            if(!logDate.isBefore(today.minusDays(6))) // last 7 days
+            {
+                if(i.isCompleted())
+                    count++;
+            }
+        }
+        double consistencyScore = (count * 100.0) / 7;
+        analytics.setConsistencyScore(consistencyScore);
+        System.out.println(analytics);
+    }
+    public int completed(ArrayList<HabitLog> logs)
+    {
+        int com=0;
+        for(HabitLog i:logs)
+        {
+            if(i.isCompleted())
+                com++;
+        }
+        return com;
+    }
+    public int getCurrentStreak(ArrayList<HabitLog> logs)
+    {
+        ArrayList<HabitLog> sortedLogs = new ArrayList<>(logs);
+        sortedLogs.sort((x,y) -> y.getDateTime().compareTo(x.getDateTime()));
+        int currentStreak = 0;
+        java.time.LocalDate checkDate = java.time.LocalDate.now();
+        for(HabitLog log : sortedLogs)
+        {
+            java.time.LocalDate logDate = log.getDateTime().toLocalDate();
+            if(logDate.equals(checkDate) && log.isCompleted())
+            {
+                currentStreak++;
+                checkDate = checkDate.minusDays(1);
+            }
+            else if(logDate.isBefore(checkDate))
+            {
+                break;
+            }
+        }
+        return currentStreak;
+    }
+    public int getLongestStreak(ArrayList<HabitLog> logs)
+    {
+        ArrayList<HabitLog> sortedLogs = new ArrayList<>(logs);
+        sortedLogs.sort((x,y) -> x.getDateTime().compareTo(y.getDateTime()));
+        int temp=0,max=0;
+        for(HabitLog i:sortedLogs)
+        {
+            if(i.isCompleted())
+            {
+                temp++;
+                max=Math.max(temp,max);
+            }
+            else
+                temp=0;
+        }
+        return max;
     }
 }

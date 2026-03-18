@@ -43,7 +43,8 @@ public class Main{
     {
         while(true)
         {
-            System.out.println("Enter Options: "+"\n1. Create Habits: "+"\n2. Habit Progress: "+"\n3. View Habits: "+"\n4 Rewards: "+"\n5. Log out: ");
+            System.out.println("Enter Options: "+"\n1. Create Habits: "+"\n2. Habit Progress: "+"\n3. View Habits: "+"\n4. Rewards: "
+                    +"\n5. Analytics: "+"\n6. Log out: ");
             int op=scan.nextInt();
             switch (op){
                 case 1 -> {
@@ -67,7 +68,9 @@ public class Main{
                 }
                 case 4 ->
                     habitService.getRewards(id);
-                case 5 -> {
+                case 5 ->
+                    habitService.TrackAnalytics(id);
+                case 6 -> {
                     System.out.println("Logging out...");
                     return;
                 }
