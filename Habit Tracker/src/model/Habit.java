@@ -1,22 +1,19 @@
 package model;
 public class Habit {
-    private int habitId;
+    private static int count=1;
+    private int habitId=0;
     private int userId;
     private String habitName;
     private int currentStreak;
 
-    public Habit(int habitId, int UserId, String habitName) {
-        this.habitId = habitId;
+    public Habit( int UserId, String habitName) {
+        this.habitId = count++;
         this.userId = UserId;
         this.habitName = habitName;
     }
 
     public int getHabitId() {
         return habitId;
-    }
-
-    public void setHabitId(int habitId) {
-        this.habitId = habitId;
     }
 
     public String getHabitName() {

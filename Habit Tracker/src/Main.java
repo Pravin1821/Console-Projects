@@ -46,14 +46,15 @@ public class Main{
             System.out.println("Enter Options: "+"\n1. Create Habits: "+"\n2. Habit Progress: "+"\n3. View Habits: "+"\n4. Rewards: "
                     +"\n5. Analytics: "+"\n6. Log out: ");
             int op=scan.nextInt();
+            scan.nextLine();
             switch (op){
                 case 1 -> {
-                    System.out.println("Enter HabitId: ");
-                    int hId = scan.nextInt();
-                    scan.nextLine();
+//                    System.out.println("Enter HabitId: ");
+//                    int hId = scan.nextInt();
+//                    scan.nextLine();
                     System.out.println("Enter Habit Name: ");
                     String name = scan.nextLine();
-                    Habit habit = new Habit(hId,id,name);
+                    Habit habit = new Habit(id,name);
                     habitService.createHabits(habit);
                 }
                 case 2 -> {

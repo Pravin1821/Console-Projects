@@ -33,6 +33,7 @@ public class UserService {
     }
     public String getName(int id)
     {
-        return userHashMap.get(id).getUserName();
+        User user = userHashMap.get(id);
+        return (user != null) ? user.getUserName() : "User not found";
     }
 }
