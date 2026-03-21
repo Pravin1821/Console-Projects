@@ -36,6 +36,18 @@ public class HabitService {
     }
     public void TrackHabit(int id,int habitId, boolean status)
     {
+        ArrayList<Habit> habit = habitMap.get(id);
+        boolean check = false;
+        for(Habit i:habit)
+        {
+            if(i.getHabitId()==habitId)
+                check = true;
+        }
+        if(check==false)
+        {
+            System.out.println("No Habit Id Found");
+            return;
+        }
         HabitLog log = new HabitLog();
         log.setLogID();
         log.setHabitId(habitId);
