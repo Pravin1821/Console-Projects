@@ -1,13 +1,38 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import Service.RestaurantService;
+import Service.UserService;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+import java.util.*;
+public class Main{
+    static UserService userService = new UserService();
+    static RestaurantService restaurantService = new RestaurantService();
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+        while(true)
+        {
+            System.out.println("Enter Option: "+"\n1. Customer Login: "+"\n2. Restaurant Login: "+"\n3. Exit: ");
+            int op = scan.nextInt();
+            switch(op)
+            {
+                case 1 -> {
+                    System.out.println("Enter userEmail: ");
+                    String email = scan.next();
+                    System.out.println("Enter password: ");
+                    String password = scan.next();
+                    userService.userLogin(email,password);
+                }
+                case 2 -> {
+                    restaurantService.viewDetails();
+                    System.out.println("Enter restaurantEmail: ");
+                    String email = scan.next();
+                    System.out.println("Enter Password: ");
+                    String password = scan.next();
+                    restaurantService.RestaurantLogin(email,password);
+                }
+                case 3 -> {
+                    System.exit(0);
+                }
+            }
+        }
     }
 }

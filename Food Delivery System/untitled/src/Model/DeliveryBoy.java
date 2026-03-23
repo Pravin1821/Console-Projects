@@ -9,7 +9,7 @@ public class DeliveryBoy extends ParentFoodDelivery{
     private float totalRating;
     private int noOfRating;
 
-    public DeliveryBoy(int name, String email, String password, String phoneNum, boolean isOnline) {
+    public DeliveryBoy(String name, String email, String password, String phoneNum, boolean isOnline) {
         super(name, email, password, phoneNum);
         this.id = count++;
         this.isOnline = isOnline;

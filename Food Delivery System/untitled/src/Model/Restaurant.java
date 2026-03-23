@@ -3,7 +3,7 @@ package Model;
 import java.util.List;
 
 public class Restaurant extends ParentFoodDelivery{
-    int count=1;
+    static int count=1;
     private int id;
     private String location;
     private boolean isOpen;
@@ -12,7 +12,7 @@ public class Restaurant extends ParentFoodDelivery{
     private float avgRating;
     private List<String> feedback;
 
-    public Restaurant(int name, String email, String password, String phoneNum, String location, boolean isOpen) {
+    public Restaurant(String name, String email, String password, String phoneNum, String location, boolean isOpen) {
         super(name, email, password, phoneNum);
         this.id = count++;
         this.location = location;
@@ -52,5 +52,22 @@ public class Restaurant extends ParentFoodDelivery{
     public float calAvgRating()
     {
         return totalRating/noOfRating;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", name="+super.getName()+
+                ", email='"+super.getEmail() +
+                ", password='" + super.getPassword()+
+                ", phoneNum='" + super.getPhoneNum() +
+                ", location='" + location +
+                ", isOpen=" + isOpen +
+                ", totalRating=" + totalRating +
+                ", noOfRating=" + noOfRating +
+                ", avgRating=" + avgRating +
+                ", feedback=" + feedback +
+                '}';
     }
 }

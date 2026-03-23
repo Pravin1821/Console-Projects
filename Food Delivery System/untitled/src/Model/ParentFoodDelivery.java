@@ -44,4 +44,14 @@ public class ParentFoodDelivery {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
+
+    @Override
+    public String toString() {
+        return "ParentFoodDelivery{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                '}';
+    }
 }
