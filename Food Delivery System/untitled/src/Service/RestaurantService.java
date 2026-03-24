@@ -75,7 +75,6 @@ public class RestaurantService {
         }
         else {
             System.out.println("Invalid Credentials!..");
-            return;
         }
     }
     public void updateAvailability(int Rid, int Mid, boolean status)
@@ -128,7 +127,7 @@ public class RestaurantService {
             if(!itemsList.isEmpty())
             {
                 Restaurant restaurant = restaurantMap.get(key);
-                System.out.println("Restaurant Name: "+restaurant.getName()+" Location: "+restaurant.getLocation());
+                System.out.println("Restaurant id: "+restaurant.getId()+" Restaurant Name: "+restaurant.getName()+" Location: "+restaurant.getLocation());
                 for(Items i:itemsList)
                 {
                     if(i.isAvailable())
@@ -136,5 +135,9 @@ public class RestaurantService {
                 }
             }
         }
+    }
+    public List<Items> getItems(int rId)
+    {
+        return itemsMap.get(rId);
     }
 }
