@@ -11,6 +11,8 @@ public class Order {
     private double totalAmount;
     private double deliveryCharge;
     private String deliveryLoc;
+    private String status = "Pending";
+    private DeliveryBoy assignedDeliveryBoy;
     private LocalDateTime dateTime;
 
     public Order(List<Items> itemsList, double totalAmount, double deliveryCharge, String deliveryLoc) {
@@ -65,6 +67,22 @@ public class Order {
         this.dateTime = dateTime;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public DeliveryBoy getAssignedDeliveryBoy() {
+        return assignedDeliveryBoy;
+    }
+
+    public void setAssignedDeliveryBoy(DeliveryBoy assignedDeliveryBoy) {
+        this.assignedDeliveryBoy = assignedDeliveryBoy;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -73,6 +91,8 @@ public class Order {
                 ", totalAmount=" + totalAmount +
                 ", deliveryCharge=" + deliveryCharge +
                 ", deliveryLoc='" + deliveryLoc + '\'' +
+                ", status=" + status +
+                ", assignedDeliveryBoy='" + assignedDeliveryBoy + '\'' +
                 ", dateTime=" + dateTime +
                 '}';
     }

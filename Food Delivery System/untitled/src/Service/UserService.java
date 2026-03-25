@@ -17,7 +17,7 @@ public class UserService {
     User user=null;
     Map<Integer,User> userMap = new HashMap<>();
     Map<Integer,List<Items>> cartmap = new HashMap<>();
-    Map<Integer,List<Order>> orderMap = new HashMap<>();
+    Map<Integer,Map<Integer,List<Order>>> orderMap = new HashMap<>();
     Scanner scan = new Scanner(System.in);
     public UserService()
     {
@@ -106,12 +106,15 @@ public class UserService {
         {
             System.out.println("No items in cart to order!..");
             return;
-        }
+        }cd
         double totalAmount = 0;
         for(Items i:items)
             totalAmount+=i.getPrice();
         Order order = new Order(items,totalAmount,40.0,user.getLocation());
-        orderMap.putIfAbsent(userId,new ArrayList<>());
+        orderMap.putIfAbsent(userId,new HashMap<>());
+        Map<Integer,List<Order>> restCartMap = orderMap.get(userId);
+
+        restCartMap.computeIfAbsent()
         orderMap.get(userId).add(order);
     }
 }
